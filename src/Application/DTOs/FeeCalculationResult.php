@@ -22,6 +22,9 @@ final readonly class FeeCalculationResult
         public string $paymentMethod,
     ) {}
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

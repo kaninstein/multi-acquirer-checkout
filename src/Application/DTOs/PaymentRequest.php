@@ -9,6 +9,9 @@ use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\PaymentMethod;
 
 final readonly class PaymentRequest
 {
+    /**
+     * @param array<string, mixed> $metadata
+     */
     public function __construct(
         public Money $amount,
         public PaymentMethod $paymentMethod,

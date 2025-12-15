@@ -17,6 +17,9 @@ class Payment
 {
     use HasDomainEvents;
 
+    /**
+     * @param array<string, mixed> $metadata
+     */
     public function __construct(
         public readonly string $id,
         public readonly Money $amount,
@@ -28,6 +31,9 @@ class Payment
         public ?string $failureReason = null,
     ) {}
 
+    /**
+     * @param array<string, mixed> $metadata
+     */
     public static function create(
         Money $amount,
         PaymentMethod $method,
@@ -68,6 +74,9 @@ class Payment
         $this->recordEvent(new PaymentFailed($this->id, $reason));
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

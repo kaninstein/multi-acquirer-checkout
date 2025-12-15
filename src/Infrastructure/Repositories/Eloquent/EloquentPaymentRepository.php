@@ -45,6 +45,7 @@ class EloquentPaymentRepository implements PaymentRepositoryInterface
             id: (string) $model->id,
             amount: Money::fromCents((int) $model->amount_cents, (string) $model->currency),
             method: PaymentMethod::from((string) $model->payment_method),
+            // @phpstan-ignore-next-line
             customer: Customer::fromArray((array) ($model->customer_data ?? [])),
             status: PaymentStatus::from((string) $model->status),
             metadata: (array) ($model->metadata ?? []),

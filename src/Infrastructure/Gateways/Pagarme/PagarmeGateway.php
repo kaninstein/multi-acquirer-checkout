@@ -140,6 +140,9 @@ class PagarmeGateway extends AbstractGateway
         return PaymentResponse::failed($this->getName(), 'Refund not implemented.');
     }
 
+    /**
+     * @param array<string, mixed> $config
+     */
     protected function configure(array $config): void
     {
         $this->secretKey = (string) ($config['secret_key'] ?? '');
@@ -179,7 +182,10 @@ class PagarmeGateway extends AbstractGateway
         }
     }
 
-    private function buildOrderData(PaymentRequest $request): array
+/**
+     * @return array<string, mixed>
+     */
+        private function buildOrderData(PaymentRequest $request): array
     {
         $order = [
             'items' => [
@@ -204,7 +210,10 @@ class PagarmeGateway extends AbstractGateway
         return $order;
     }
 
-    private function buildCustomerData(PaymentRequest $request): array
+/**
+     * @return array<string, mixed>
+     */
+        private function buildCustomerData(PaymentRequest $request): array
     {
         $customer = [
             'name' => $request->customer->name,
@@ -221,7 +230,10 @@ class PagarmeGateway extends AbstractGateway
         return $customer;
     }
 
-    private function buildPaymentData(PaymentRequest $request): array
+/**
+     * @return array<string, mixed>
+     */
+        private function buildPaymentData(PaymentRequest $request): array
     {
         return match ($request->paymentMethod->value) {
             'pix' => [
@@ -234,14 +246,17 @@ class PagarmeGateway extends AbstractGateway
                 'payment_method' => 'boleto',
                 'boleto' => [
                     'instructions' => (string) config('multi-acquirer.gateways.pagarme.boleto_instructions', ''),
-                    'due_at' => gmdate('c', strtotime('+'.(int) config('multi-acquirer.payment_methods.boleto.due_days', 3).' days')),
+                    'due_at' => gmdate('c', strtotime('+'.(int) config('multi-acquirer.payment_methods.boleto.due_days', 3).' days') ?: null),
                 ],
             ],
             default => $this->buildCardPaymentData($request),
         };
     }
 
-    private function buildCardPaymentData(PaymentRequest $request): array
+/**
+     * @return array<string, mixed>
+     */
+        private function buildCardPaymentData(PaymentRequest $request): array
     {
         $card = $request->cardData;
         if (! $card) {

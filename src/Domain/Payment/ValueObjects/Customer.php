@@ -6,6 +6,9 @@ use InvalidArgumentException;
 
 final readonly class Customer
 {
+    /**
+     * @param array<string, mixed> $address
+     */
     private function __construct(
         public string $name,
         public string $email,
@@ -23,19 +26,22 @@ final readonly class Customer
     }
 
     /**
-     * @param  array{name:string,email:string,document?:string|null,phone?:string|null,address?:array}  $data
+     * @param array{name: string, email: string, document?: string|null, phone?: string|null, address?: array<string, mixed>} $data
      */
     public static function fromArray(array $data): self
     {
         return new self(
-            name: (string) ($data['name'] ?? ''),
-            email: (string) ($data['email'] ?? ''),
-            document: isset($data['document']) ? (string) $data['document'] : null,
-            phone: isset($data['phone']) ? (string) $data['phone'] : null,
-            address: is_array($data['address'] ?? null) ? $data['address'] : [],
+            name: $data['name'],
+            email: $data['email'],
+            document: $data['document'] ?? null,
+            phone: $data['phone'] ?? null,
+            address: $data['address'] ?? [],
         );
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

@@ -16,8 +16,12 @@ abstract class AbstractGateway implements GatewayInterface
 
     protected int $timeout = 30;
 
+    /** @var array<string, mixed> */
     protected array $credentials = [];
 
+    /**
+     * @param array<string, mixed> $config
+     */
     public function __construct(array $config = [])
     {
         $this->enabled = (bool) ($config['enabled'] ?? true);
@@ -28,6 +32,9 @@ abstract class AbstractGateway implements GatewayInterface
         $this->configure($config);
     }
 
+    /**
+     * @param array<string, mixed> $config
+     */
     protected function configure(array $config): void
     {
     }
@@ -46,7 +53,16 @@ abstract class AbstractGateway implements GatewayInterface
         return $this->sandbox ? $this->getSandboxUrl() : $this->getBaseUrl();
     }
 
-    protected function request(string $method, string $endpoint, array $data = [], array $headers = []): mixed
+    /**
+     * @param array<string, mixed> $data
+     * @param array<string, string> $headers
+     */
+    protected function request(
+        string $method,
+        string $endpoint,
+        array $data = [],
+        array $headers = []
+    ): mixed
     {
         $url = $this->getApiUrl().'/'.ltrim($endpoint, '/');
 
@@ -80,6 +96,9 @@ abstract class AbstractGateway implements GatewayInterface
         }
     }
 
+    /**
+     * @return array<string, string>
+     */
     protected function getDefaultHeaders(): array
     {
         return [

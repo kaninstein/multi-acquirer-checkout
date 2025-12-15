@@ -8,6 +8,14 @@ use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\Money;
 
 class Order
 {
+    /**
+     * @param array<int, array<string, mixed>> $items
+     * @param array<string, mixed> $metadata
+     */
+    /**
+     * @param array<int, array<string, mixed>> $items
+     * @param array<string, mixed> $metadata
+     */
     public function __construct(
         public readonly string $id,
         public readonly Money $amount,
@@ -16,6 +24,14 @@ class Order
         public array $metadata = [],
     ) {}
 
+    /**
+     * @param array<int, array<string, mixed>> $items
+     * @param array<string, mixed> $metadata
+     */
+    /**
+     * @param array<int, array<string, mixed>> $items
+     * @param array<string, mixed> $metadata
+     */
     public static function create(Money $amount, Customer $customer, array $items = [], array $metadata = []): self
     {
         return new self(
@@ -27,6 +43,9 @@ class Order
         );
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

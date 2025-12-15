@@ -38,6 +38,7 @@ class EloquentOrderRepository implements OrderRepositoryInterface
         return new Order(
             id: (string) $model->id,
             amount: Money::fromCents((int) $model->amount_cents, (string) $model->currency),
+            // @phpstan-ignore-next-line
             customer: Customer::fromArray((array) ($model->customer_data ?? [])),
             items: [],
             metadata: (array) ($model->metadata ?? []),

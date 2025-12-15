@@ -4,6 +4,12 @@ namespace Kaninstein\MultiAcquirerCheckout\Application\DTOs;
 
 final readonly class PaymentResponse
 {
+    /**
+     * @param array<string, mixed>|null $pixData
+     * @param array<string, mixed>|null $boletoData
+     * @param array<string, mixed>|null $cardData
+     * @param array<string, mixed> $metadata
+     */
     public function __construct(
         public string $gatewayName,
         public string $status,
@@ -20,6 +26,9 @@ final readonly class PaymentResponse
         public array $metadata = [],
     ) {}
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public static function success(string $gatewayName, array $data = []): self
     {
         return new self(
@@ -37,6 +46,9 @@ final readonly class PaymentResponse
         );
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public static function pending(string $gatewayName, array $data = []): self
     {
         return new self(
@@ -54,6 +66,9 @@ final readonly class PaymentResponse
         );
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public static function failed(string $gatewayName, string $errorMessage, ?string $errorCode = null, array $data = []): self
     {
         return new self(
@@ -75,6 +90,9 @@ final readonly class PaymentResponse
         return in_array($this->status, ['paid', 'pending'], true) && $this->errorMessage === null;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

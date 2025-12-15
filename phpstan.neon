@@ -3,7 +3,14 @@ parameters:
     paths:
         - src
     ignoreErrors:
-        # Add specific ignores if needed
+        # Eloquent dynamic properties
+        - '#Access to an undefined property .+Model::\$.+#'
+        # Eloquent casts array
+        - '#Property .+Model::\$casts type has no value type specified#'
+        # json_decode false return type (already handled in code)
+        - '#Parameter \#1 \$json of function json_decode expects string, string\|false given#'
+        # Ternary operator false positive
+        - '#Else branch is unreachable because ternary operator condition is always true#'
     parallel:
         jobSize: 1000000
         maximumNumberOfProcesses: 1

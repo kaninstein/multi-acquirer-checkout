@@ -26,6 +26,9 @@ final readonly class CardData
         );
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [
