@@ -1,6 +1,6 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects;
+namespace Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects;
 
 enum PaymentMethod: string
 {

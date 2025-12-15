@@ -1,16 +1,16 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Infrastructure\Gateways\Pagarme;
+namespace Kaninstein\MultiAcquirerCheckout\Infrastructure\Gateways\Pagarme;
 
 use Kaninstein\LaravelPagarme\Exceptions\BadRequestException;
 use Kaninstein\LaravelPagarme\Exceptions\PagarmeException;
 use Kaninstein\LaravelPagarme\Exceptions\ValidationException;
 use Kaninstein\LaravelPagarme\Facades\Pagarme;
-use Kaninstein\MultiAquirerCheckout\Application\DTOs\PaymentRequest;
-use Kaninstein\MultiAquirerCheckout\Application\DTOs\PaymentResponse;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Gateways\AbstractGateway;
-use Kaninstein\MultiAquirerCheckout\Support\Exceptions\CardRejectionException;
-use Kaninstein\MultiAquirerCheckout\Support\Exceptions\PaymentGatewayException;
+use Kaninstein\MultiAcquirerCheckout\Application\DTOs\PaymentRequest;
+use Kaninstein\MultiAcquirerCheckout\Application\DTOs\PaymentResponse;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Gateways\AbstractGateway;
+use Kaninstein\MultiAcquirerCheckout\Support\Exceptions\CardRejectionException;
+use Kaninstein\MultiAcquirerCheckout\Support\Exceptions\PaymentGatewayException;
 
 class PagarmeGateway extends AbstractGateway
 {

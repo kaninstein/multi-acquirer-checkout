@@ -1,17 +1,17 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Domain\Payment\Entities;
+namespace Kaninstein\MultiAcquirerCheckout\Domain\Payment\Entities;
 
 use Illuminate\Support\Str;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\Events\PaymentAuthorized;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\Events\PaymentCreated;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\Events\PaymentFailed;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\Events\PaymentPaid;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\Customer;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\Money;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\PaymentMethod;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\PaymentStatus;
-use Kaninstein\MultiAquirerCheckout\Support\Traits\HasDomainEvents;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\Events\PaymentAuthorized;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\Events\PaymentCreated;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\Events\PaymentFailed;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\Events\PaymentPaid;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\Customer;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\Money;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\PaymentMethod;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\PaymentStatus;
+use Kaninstein\MultiAcquirerCheckout\Support\Traits\HasDomainEvents;
 
 class Payment
 {

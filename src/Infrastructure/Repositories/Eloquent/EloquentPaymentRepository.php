@@ -1,14 +1,14 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Eloquent;
+namespace Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Eloquent;
 
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\Entities\Payment;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\Customer;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\Money;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\PaymentMethod;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\PaymentStatus;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Persistence\Models\PaymentModel;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Contracts\PaymentRepositoryInterface;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\Entities\Payment;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\Customer;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\Money;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\PaymentMethod;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\PaymentStatus;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Persistence\Models\PaymentModel;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Contracts\PaymentRepositoryInterface;
 
 class EloquentPaymentRepository implements PaymentRepositoryInterface
 {

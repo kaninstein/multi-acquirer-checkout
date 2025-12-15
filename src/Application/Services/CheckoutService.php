@@ -1,14 +1,14 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Application\Services;
+namespace Kaninstein\MultiAcquirerCheckout\Application\Services;
 
 use Illuminate\Contracts\Events\Dispatcher;
-use Kaninstein\MultiAquirerCheckout\Application\DTOs\CheckoutResult;
-use Kaninstein\MultiAquirerCheckout\Application\DTOs\PaymentRequest;
-use Kaninstein\MultiAquirerCheckout\Domain\Fee\Services\FeeCalculator;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\Entities\Payment;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Contracts\PaymentRepositoryInterface;
-use Kaninstein\MultiAquirerCheckout\Support\Pipelines\GatewayPipeline;
+use Kaninstein\MultiAcquirerCheckout\Application\DTOs\CheckoutResult;
+use Kaninstein\MultiAcquirerCheckout\Application\DTOs\PaymentRequest;
+use Kaninstein\MultiAcquirerCheckout\Domain\Fee\Services\FeeCalculator;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\Entities\Payment;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Contracts\PaymentRepositoryInterface;
+use Kaninstein\MultiAcquirerCheckout\Support\Pipelines\GatewayPipeline;
 
 class CheckoutService
 {

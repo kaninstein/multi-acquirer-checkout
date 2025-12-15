@@ -1,8 +1,8 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Application\DTOs;
+namespace Kaninstein\MultiAcquirerCheckout\Application\DTOs;
 
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\Entities\Payment;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\Entities\Payment;
 
 final readonly class CheckoutResult
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Tests;
+namespace Kaninstein\MultiAcquirerCheckout\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use Kaninstein\MultiAquirerCheckout\MultiAcquirerCheckoutServiceProvider;
+use Kaninstein\MultiAcquirerCheckout\MultiAcquirerCheckoutServiceProvider;
 
 abstract class TestCase extends Orchestra
 {

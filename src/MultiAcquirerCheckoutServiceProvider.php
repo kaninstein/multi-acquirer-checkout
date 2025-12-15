@@ -1,26 +1,26 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout;
+namespace Kaninstein\MultiAcquirerCheckout;
 
 use Illuminate\Support\ServiceProvider;
-use Kaninstein\MultiAquirerCheckout\Application\Services\CheckoutService;
-use Kaninstein\MultiAquirerCheckout\Domain\Fee\Services\FeeCalculator;
-use Kaninstein\MultiAquirerCheckout\Domain\Gateway\Contracts\GatewayInterface;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Gateways\Appmax\AppmaxGateway;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Gateways\MercadoPago\MercadoPagoGateway;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Gateways\Pagarme\PagarmeGateway;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Gateways\Stripe\StripeGateway;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Contracts\FeeConfigRepositoryInterface;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Contracts\OrderRepositoryInterface;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Contracts\PaymentRepositoryInterface;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Eloquent\EloquentFeeConfigRepository;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Eloquent\EloquentOrderRepository;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Eloquent\EloquentPaymentRepository;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Config\ConfigFeeConfigRepository;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\InMemory\InMemoryFeeConfigRepository;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\InMemory\InMemoryOrderRepository;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\InMemory\InMemoryPaymentRepository;
-use Kaninstein\MultiAquirerCheckout\Support\Pipelines\GatewayPipeline;
+use Kaninstein\MultiAcquirerCheckout\Application\Services\CheckoutService;
+use Kaninstein\MultiAcquirerCheckout\Domain\Fee\Services\FeeCalculator;
+use Kaninstein\MultiAcquirerCheckout\Domain\Gateway\Contracts\GatewayInterface;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Gateways\Appmax\AppmaxGateway;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Gateways\MercadoPago\MercadoPagoGateway;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Gateways\Pagarme\PagarmeGateway;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Gateways\Stripe\StripeGateway;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Contracts\FeeConfigRepositoryInterface;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Contracts\OrderRepositoryInterface;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Contracts\PaymentRepositoryInterface;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Eloquent\EloquentFeeConfigRepository;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Eloquent\EloquentOrderRepository;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Eloquent\EloquentPaymentRepository;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Config\ConfigFeeConfigRepository;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\InMemory\InMemoryFeeConfigRepository;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\InMemory\InMemoryOrderRepository;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\InMemory\InMemoryPaymentRepository;
+use Kaninstein\MultiAcquirerCheckout\Support\Pipelines\GatewayPipeline;
 
 class MultiAcquirerCheckoutServiceProvider extends ServiceProvider
 {

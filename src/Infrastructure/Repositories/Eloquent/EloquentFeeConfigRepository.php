@@ -1,9 +1,9 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Eloquent;
+namespace Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Eloquent;
 
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Persistence\Models\FeeConfigModel;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Contracts\FeeConfigRepositoryInterface;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Persistence\Models\FeeConfigModel;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Contracts\FeeConfigRepositoryInterface;
 
 class EloquentFeeConfigRepository implements FeeConfigRepositoryInterface
 {

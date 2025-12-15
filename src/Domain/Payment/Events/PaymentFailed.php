@@ -1,6 +1,6 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Domain\Payment\Events;
+namespace Kaninstein\MultiAcquirerCheckout\Domain\Payment\Events;
 
 final readonly class PaymentFailed
 {

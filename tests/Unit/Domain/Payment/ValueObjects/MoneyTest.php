@@ -1,10 +1,10 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Tests\Unit\Domain\Payment\ValueObjects;
+namespace Kaninstein\MultiAcquirerCheckout\Tests\Unit\Domain\Payment\ValueObjects;
 
 use InvalidArgumentException;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\Money;
-use Kaninstein\MultiAquirerCheckout\Tests\TestCase;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\Money;
+use Kaninstein\MultiAcquirerCheckout\Tests\TestCase;
 
 class MoneyTest extends TestCase
 {

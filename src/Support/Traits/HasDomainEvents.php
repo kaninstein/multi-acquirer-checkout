@@ -1,6 +1,6 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Support\Traits;
+namespace Kaninstein\MultiAcquirerCheckout\Support\Traits;
 
 trait HasDomainEvents
 {

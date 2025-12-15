@@ -1,15 +1,15 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Tests\Unit\Support;
+namespace Kaninstein\MultiAcquirerCheckout\Tests\Unit\Support;
 
-use Kaninstein\MultiAquirerCheckout\Application\DTOs\PaymentRequest;
-use Kaninstein\MultiAquirerCheckout\Application\DTOs\PaymentResponse;
-use Kaninstein\MultiAquirerCheckout\Domain\Gateway\Contracts\GatewayInterface;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\Customer;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\Money;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\PaymentMethod;
-use Kaninstein\MultiAquirerCheckout\Support\Pipelines\GatewayPipeline;
-use Kaninstein\MultiAquirerCheckout\Tests\TestCase;
+use Kaninstein\MultiAcquirerCheckout\Application\DTOs\PaymentRequest;
+use Kaninstein\MultiAcquirerCheckout\Application\DTOs\PaymentResponse;
+use Kaninstein\MultiAcquirerCheckout\Domain\Gateway\Contracts\GatewayInterface;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\Customer;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\Money;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\PaymentMethod;
+use Kaninstein\MultiAcquirerCheckout\Support\Pipelines\GatewayPipeline;
+use Kaninstein\MultiAcquirerCheckout\Tests\TestCase;
 
 class GatewayPipelineTest extends TestCase
 {

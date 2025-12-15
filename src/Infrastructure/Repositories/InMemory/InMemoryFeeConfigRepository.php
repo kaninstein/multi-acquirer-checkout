@@ -1,8 +1,8 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\InMemory;
+namespace Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\InMemory;
 
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Contracts\FeeConfigRepositoryInterface;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Contracts\FeeConfigRepositoryInterface;
 
 class InMemoryFeeConfigRepository implements FeeConfigRepositoryInterface
 {

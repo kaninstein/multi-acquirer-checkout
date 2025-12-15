@@ -1,9 +1,9 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\InMemory;
+namespace Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\InMemory;
 
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\Entities\Payment;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Contracts\PaymentRepositoryInterface;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\Entities\Payment;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Contracts\PaymentRepositoryInterface;
 
 class InMemoryPaymentRepository implements PaymentRepositoryInterface
 {

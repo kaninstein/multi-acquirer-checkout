@@ -1,9 +1,9 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Domain\Gateway\Contracts;
+namespace Kaninstein\MultiAcquirerCheckout\Domain\Gateway\Contracts;
 
-use Kaninstein\MultiAquirerCheckout\Application\DTOs\PaymentRequest;
-use Kaninstein\MultiAquirerCheckout\Application\DTOs\PaymentResponse;
+use Kaninstein\MultiAcquirerCheckout\Application\DTOs\PaymentRequest;
+use Kaninstein\MultiAcquirerCheckout\Application\DTOs\PaymentResponse;
 
 interface GatewayInterface
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Config;
+namespace Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Config;
 
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Contracts\FeeConfigRepositoryInterface;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Contracts\FeeConfigRepositoryInterface;
 
 class ConfigFeeConfigRepository implements FeeConfigRepositoryInterface
 {

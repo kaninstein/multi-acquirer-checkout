@@ -1,8 +1,8 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Contracts;
+namespace Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Contracts;
 
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\Entities\Payment;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\Entities\Payment;
 
 interface PaymentRepositoryInterface
 {

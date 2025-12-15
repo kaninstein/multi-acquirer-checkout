@@ -1,9 +1,9 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Domain\Fee\Services;
+namespace Kaninstein\MultiAcquirerCheckout\Domain\Fee\Services;
 
-use Kaninstein\MultiAquirerCheckout\Application\DTOs\FeeCalculationResult;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Contracts\FeeConfigRepositoryInterface;
+use Kaninstein\MultiAcquirerCheckout\Application\DTOs\FeeCalculationResult;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Contracts\FeeConfigRepositoryInterface;
 
 class FeeCalculator
 {

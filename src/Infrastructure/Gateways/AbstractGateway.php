@@ -1,12 +1,12 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Infrastructure\Gateways;
+namespace Kaninstein\MultiAcquirerCheckout\Infrastructure\Gateways;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Kaninstein\MultiAquirerCheckout\Application\DTOs\PaymentRequest;
-use Kaninstein\MultiAquirerCheckout\Domain\Gateway\Contracts\GatewayInterface;
-use Kaninstein\MultiAquirerCheckout\Support\Exceptions\PaymentGatewayException;
+use Kaninstein\MultiAcquirerCheckout\Application\DTOs\PaymentRequest;
+use Kaninstein\MultiAcquirerCheckout\Domain\Gateway\Contracts\GatewayInterface;
+use Kaninstein\MultiAcquirerCheckout\Support\Exceptions\PaymentGatewayException;
 
 abstract class AbstractGateway implements GatewayInterface
 {

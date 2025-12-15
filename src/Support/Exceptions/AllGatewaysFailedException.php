@@ -1,6 +1,6 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Support\Exceptions;
+namespace Kaninstein\MultiAcquirerCheckout\Support\Exceptions;
 
 use RuntimeException;
 

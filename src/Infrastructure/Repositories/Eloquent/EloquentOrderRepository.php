@@ -1,12 +1,12 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Eloquent;
+namespace Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Eloquent;
 
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\Entities\Order;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\Customer;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\Money;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Persistence\Models\OrderModel;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Contracts\OrderRepositoryInterface;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\Entities\Order;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\Customer;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\Money;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Persistence\Models\OrderModel;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Contracts\OrderRepositoryInterface;
 
 class EloquentOrderRepository implements OrderRepositoryInterface
 {

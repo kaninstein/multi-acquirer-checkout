@@ -1,6 +1,6 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Infrastructure\Repositories\Contracts;
+namespace Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Contracts;
 
 interface FeeConfigRepositoryInterface
 {

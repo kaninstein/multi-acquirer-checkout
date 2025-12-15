@@ -1,13 +1,13 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Support\Pipelines;
+namespace Kaninstein\MultiAcquirerCheckout\Support\Pipelines;
 
 use Illuminate\Support\Facades\Log;
-use Kaninstein\MultiAquirerCheckout\Application\DTOs\PaymentRequest;
-use Kaninstein\MultiAquirerCheckout\Application\DTOs\PaymentResponse;
-use Kaninstein\MultiAquirerCheckout\Domain\Gateway\Contracts\GatewayInterface;
-use Kaninstein\MultiAquirerCheckout\Support\Exceptions\AllGatewaysFailedException;
-use Kaninstein\MultiAquirerCheckout\Support\Exceptions\CardRejectionException;
+use Kaninstein\MultiAcquirerCheckout\Application\DTOs\PaymentRequest;
+use Kaninstein\MultiAcquirerCheckout\Application\DTOs\PaymentResponse;
+use Kaninstein\MultiAcquirerCheckout\Domain\Gateway\Contracts\GatewayInterface;
+use Kaninstein\MultiAcquirerCheckout\Support\Exceptions\AllGatewaysFailedException;
+use Kaninstein\MultiAcquirerCheckout\Support\Exceptions\CardRejectionException;
 
 class GatewayPipeline
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Application\DTOs;
+namespace Kaninstein\MultiAcquirerCheckout\Application\DTOs;
 
 final readonly class FeeCalculationResult
 {

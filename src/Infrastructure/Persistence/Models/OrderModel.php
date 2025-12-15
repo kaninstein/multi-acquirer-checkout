@@ -1,6 +1,6 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Infrastructure\Persistence\Models;
+namespace Kaninstein\MultiAcquirerCheckout\Infrastructure\Persistence\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

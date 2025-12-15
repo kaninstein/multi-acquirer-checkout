@@ -1,10 +1,10 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Infrastructure\Gateways\Stripe;
+namespace Kaninstein\MultiAcquirerCheckout\Infrastructure\Gateways\Stripe;
 
-use Kaninstein\MultiAquirerCheckout\Application\DTOs\PaymentRequest;
-use Kaninstein\MultiAquirerCheckout\Application\DTOs\PaymentResponse;
-use Kaninstein\MultiAquirerCheckout\Infrastructure\Gateways\AbstractGateway;
+use Kaninstein\MultiAcquirerCheckout\Application\DTOs\PaymentRequest;
+use Kaninstein\MultiAcquirerCheckout\Application\DTOs\PaymentResponse;
+use Kaninstein\MultiAcquirerCheckout\Infrastructure\Gateways\AbstractGateway;
 
 class StripeGateway extends AbstractGateway
 {

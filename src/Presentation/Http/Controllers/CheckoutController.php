@@ -1,15 +1,15 @@
 <?php
 
-namespace Kaninstein\MultiAquirerCheckout\Presentation\Http\Controllers;
+namespace Kaninstein\MultiAcquirerCheckout\Presentation\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Kaninstein\MultiAquirerCheckout\Application\DTOs\PaymentRequest;
-use Kaninstein\MultiAquirerCheckout\Application\Services\CheckoutService;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\CardData;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\Customer;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\Money;
-use Kaninstein\MultiAquirerCheckout\Domain\Payment\ValueObjects\PaymentMethod;
+use Kaninstein\MultiAcquirerCheckout\Application\DTOs\PaymentRequest;
+use Kaninstein\MultiAcquirerCheckout\Application\Services\CheckoutService;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\CardData;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\Customer;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\Money;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\PaymentMethod;
 
 class CheckoutController
 {
