@@ -1,0 +1,10 @@
+parameters:
+    level: 8
+    paths:
+        - src
+    ignoreErrors:
+        # Add specific ignores if needed
+    parallel:
+        jobSize: 1000000
+        maximumNumberOfProcesses: 1
+        minimumNumberOfJobsPerProcess: 1000000
