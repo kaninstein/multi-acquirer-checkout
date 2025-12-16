@@ -50,6 +50,10 @@ class PagarmeGateway extends AbstractGateway
                 throw new PaymentGatewayException('No charge returned from Pagar.me.');
             }
 
+            $lastTransaction = is_array($charge['last_transaction'] ?? null) ? $charge['last_transaction'] : [];
+            $gatewayResponse = is_array($lastTransaction['gateway_response'] ?? null) ? $lastTransaction['gateway_response'] : [];
+            $gatewayErrors = is_array($gatewayResponse['errors'] ?? null) ? $gatewayResponse['errors'] : [];
+
             $txId = (string) ($charge['id'] ?? $order['id'] ?? '');
             $status = $this->normalizeStatus((string) ($charge['status'] ?? $order['status'] ?? 'pending'), $request->paymentMethod->value);
 
@@ -62,12 +66,18 @@ class PagarmeGateway extends AbstractGateway
                 'metadata' => [
                     'order_id' => $order['id'] ?? null,
                     'charge_id' => $charge['id'] ?? null,
+                    'transaction_id' => $lastTransaction['id'] ?? null,
                 ],
             ];
 
+            if ($gatewayErrors !== []) {
+                $payload['metadata']['gateway_errors'] = $gatewayErrors;
+                $payload['metadata']['gateway_code'] = $gatewayResponse['code'] ?? null;
+            }
+
             if ($request->paymentMethod->value === 'pix') {
-                $pix = $charge['last_transaction']['qr_code'] ?? $charge['last_transaction']['pix_qr_code'] ?? null;
-                $pixText = $charge['last_transaction']['qr_code_url'] ?? $charge['last_transaction']['pix_qr_code_url'] ?? null;
+                $pix = $lastTransaction['qr_code'] ?? $lastTransaction['pix_qr_code'] ?? null;
+                $pixText = $lastTransaction['qr_code_url'] ?? $lastTransaction['pix_qr_code_url'] ?? null;
                 $payload['pix'] = [
                     'qrcode' => $pix,
                     'copy_paste' => $pixText,
@@ -76,8 +86,8 @@ class PagarmeGateway extends AbstractGateway
 
             if ($request->paymentMethod->value === 'boleto') {
                 $payload['boleto'] = [
-                    'barcode' => $charge['last_transaction']['line'] ?? null,
-                    'url' => $charge['last_transaction']['url'] ?? null,
+                    'barcode' => $lastTransaction['line'] ?? null,
+                    'url' => $lastTransaction['url'] ?? $lastTransaction['pdf'] ?? null,
                 ];
             }
 
@@ -86,7 +96,29 @@ class PagarmeGateway extends AbstractGateway
             }
 
             if ($status === 'failed') {
-                return PaymentResponse::failed($this->getName(), 'Payment not approved', null, $payload);
+                $acquirerMessage = is_string($lastTransaction['acquirer_message'] ?? null) ? $lastTransaction['acquirer_message'] : null;
+                $errorMessage = 'Payment not approved';
+
+                if ($gatewayErrors !== []) {
+                    $first = $gatewayErrors[0]['message'] ?? null;
+                    if (is_string($first) && $first !== '') {
+                        $errorMessage = $first;
+                    }
+                } elseif (is_string($acquirerMessage) && $acquirerMessage !== '') {
+                    $errorMessage = $acquirerMessage;
+                }
+
+                return PaymentResponse::failed($this->getName(), $errorMessage, null, $payload);
+            }
+
+            // For simulator scenarios (ex.: "with_error"), Pagar.me may return gateway errors even when the charge is still processing.
+            // In that case, keep the payment as pending and let webhooks update the final status.
+            if (
+                $request->paymentMethod->value === 'card'
+                && $gatewayErrors !== []
+                && in_array((string) ($lastTransaction['status'] ?? ''), ['with_error', 'processing'], true)
+            ) {
+                return PaymentResponse::pending($this->getName(), $payload);
             }
 
             return PaymentResponse::pending($this->getName(), $payload);
