@@ -37,6 +37,9 @@ class CheckoutController
             'card.cvv' => ['sometimes', 'string'],
             'metadata' => ['sometimes', 'array'],
             'gateway' => ['sometimes', 'string'],
+            'platform_fee_rate' => ['sometimes', 'numeric', 'min:0', 'max:1'],
+            'merchant_absorbs_financing' => ['sometimes', 'boolean'],
+            'fee_responsibility' => ['sometimes', 'string', 'in:buyer,merchant'],
         ]);
 
         $amount = Money::fromCents(
@@ -60,6 +63,9 @@ class CheckoutController
             cardData: $card,
             metadata: (array) ($validated['metadata'] ?? []),
             preferredGateway: (string) ($validated['gateway'] ?? ''),
+            merchantAbsorbsFinancing: (bool) ($validated['merchant_absorbs_financing'] ?? false),
+            feeResponsibility: (string) ($validated['fee_responsibility'] ?? 'buyer'),
+            platformFeeRate: array_key_exists('platform_fee_rate', $validated) ? (float) $validated['platform_fee_rate'] : null,
         ));
 
         return response()->json([
@@ -70,4 +76,3 @@ class CheckoutController
         ]);
     }
 }
-

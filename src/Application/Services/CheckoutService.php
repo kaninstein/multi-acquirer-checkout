@@ -28,7 +28,7 @@ class CheckoutService
             metadata: $request->metadata,
         );
 
-        $platformRate = (float) config('multi-acquirer.fees.platform.default_rate', 0.06);
+        $platformRate = $request->platformFeeRate ?? (float) config('multi-acquirer.fees.platform.default_rate', 0.06);
 
         // Fee calculation is based on the product/base price.
         $fees = $this->feeCalculator->calculate(

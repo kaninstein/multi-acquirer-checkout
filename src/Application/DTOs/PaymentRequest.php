@@ -22,6 +22,7 @@ final readonly class PaymentRequest
         public string $preferredGateway = '',
         public bool $merchantAbsorbsFinancing = false,
         public string $feeResponsibility = 'buyer',
+        public ?float $platformFeeRate = null,
     ) {}
 
     public function isCardPayment(): bool
@@ -29,4 +30,3 @@ final readonly class PaymentRequest
         return $this->paymentMethod === PaymentMethod::CARD;
     }
 }
-

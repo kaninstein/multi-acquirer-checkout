@@ -48,7 +48,7 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit",
+        "test": "vendor/bin/phpunit --do-not-cache-result",
         "test:coverage": "vendor/bin/phpunit --coverage-html coverage",
         "phpstan": "vendor/bin/phpstan analyse src --level=8",
         "format": "vendor/bin/pint"
