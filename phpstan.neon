@@ -12,6 +12,5 @@ parameters:
         # Ternary operator false positive
         - '#Else branch is unreachable because ternary operator condition is always true#'
     parallel:
-        jobSize: 1000000
-        maximumNumberOfProcesses: 1
-        minimumNumberOfJobsPerProcess: 1000000
+        maximumNumberOfProcesses: 0
+        processTimeout: 600.0

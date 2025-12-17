@@ -11,7 +11,11 @@ final class BoletoBarcodeController
 {
     public function __invoke(Request $request): Response
     {
-        $code = (string) $request->query('code', '');
+        $code = $request->query('code');
+        if (! is_string($code) || $code === '') {
+            return response('Missing boleto code', 422);
+        }
+
         $digits = BoletoLine::toBarcodeDigits($code);
 
         if (! is_string($digits)) {
@@ -23,10 +27,9 @@ final class BoletoBarcodeController
         // Boleto barcode uses Interleaved 2 of 5 (ITF) with 44 digits.
         $svg = $generator->getBarcode($digits, $generator::TYPE_INTERLEAVED_2_5, 2, 60);
 
-        return response($svg, 200, [
+        return new Response($svg, 200, [
             'Content-Type' => 'image/svg+xml; charset=utf-8',
             'Cache-Control' => 'public, max-age=300',
         ]);
     }
 }
-
