@@ -4,9 +4,11 @@ namespace Kaninstein\MultiAcquirerCheckout\Domain\Payment\Entities;
 
 use Illuminate\Support\Str;
 use Kaninstein\MultiAcquirerCheckout\Domain\Payment\Events\PaymentAuthorized;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\Events\PaymentCanceled;
 use Kaninstein\MultiAcquirerCheckout\Domain\Payment\Events\PaymentCreated;
 use Kaninstein\MultiAcquirerCheckout\Domain\Payment\Events\PaymentFailed;
 use Kaninstein\MultiAcquirerCheckout\Domain\Payment\Events\PaymentPaid;
+use Kaninstein\MultiAcquirerCheckout\Domain\Payment\Events\PaymentRefunded;
 use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\Customer;
 use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\Money;
 use Kaninstein\MultiAcquirerCheckout\Domain\Payment\ValueObjects\PaymentMethod;
@@ -74,6 +76,18 @@ class Payment
         $this->recordEvent(new PaymentFailed($this->id, $reason));
     }
 
+    public function cancel(): void
+    {
+        $this->status = PaymentStatus::CANCELED;
+        $this->recordEvent(new PaymentCanceled($this->id, $this->gatewayTransactionId));
+    }
+
+    public function refund(): void
+    {
+        $this->status = PaymentStatus::REFUNDED;
+        $this->recordEvent(new PaymentRefunded($this->id, $this->gatewayTransactionId));
+    }
+
     /**
      * @return array<string, mixed>
      */
@@ -92,4 +106,3 @@ class Payment
         ];
     }
 }
-

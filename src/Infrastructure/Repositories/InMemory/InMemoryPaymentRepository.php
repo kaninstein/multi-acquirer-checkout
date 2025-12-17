@@ -19,5 +19,15 @@ class InMemoryPaymentRepository implements PaymentRepositoryInterface
     {
         return $this->payments[$id] ?? null;
     }
-}
 
+    public function findByGatewayTransactionId(string $gatewayTransactionId): ?Payment
+    {
+        foreach ($this->payments as $payment) {
+            if ($payment->gatewayTransactionId === $gatewayTransactionId) {
+                return $payment;
+            }
+        }
+
+        return null;
+    }
+}

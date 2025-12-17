@@ -41,6 +41,25 @@ class EloquentPaymentRepository implements PaymentRepositoryInterface
             return null;
         }
 
+        return $this->toEntity($model);
+    }
+
+    public function findByGatewayTransactionId(string $gatewayTransactionId): ?Payment
+    {
+        /** @var PaymentModel|null $model */
+        $model = $this->model->newQuery()
+            ->where('gateway_transaction_id', $gatewayTransactionId)
+            ->first();
+
+        if (! $model) {
+            return null;
+        }
+
+        return $this->toEntity($model);
+    }
+
+    private function toEntity(PaymentModel $model): Payment
+    {
         return new Payment(
             id: (string) $model->id,
             amount: Money::fromCents((int) $model->amount_cents, (string) $model->currency),
@@ -54,4 +73,3 @@ class EloquentPaymentRepository implements PaymentRepositoryInterface
         );
     }
 }
-

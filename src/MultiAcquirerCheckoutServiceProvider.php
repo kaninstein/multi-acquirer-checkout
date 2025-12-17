@@ -4,6 +4,7 @@ namespace Kaninstein\MultiAcquirerCheckout;
 
 use Illuminate\Support\ServiceProvider;
 use Kaninstein\MultiAcquirerCheckout\Application\Services\CheckoutService;
+use Kaninstein\MultiAcquirerCheckout\Application\Services\PagarmeWebhookService;
 use Kaninstein\MultiAcquirerCheckout\Domain\Fee\Services\FeeCalculator;
 use Kaninstein\MultiAcquirerCheckout\Domain\Gateway\Contracts\GatewayInterface;
 use Kaninstein\MultiAcquirerCheckout\Infrastructure\Gateways\Appmax\AppmaxGateway;
@@ -137,6 +138,7 @@ class MultiAcquirerCheckoutServiceProvider extends ServiceProvider
     protected function registerServices(): void
     {
         $this->app->singleton(CheckoutService::class);
+        $this->app->singleton(PagarmeWebhookService::class);
         $this->app->singleton(FeeCalculator::class);
     }
 
@@ -149,6 +151,7 @@ class MultiAcquirerCheckoutServiceProvider extends ServiceProvider
     {
         return [
             CheckoutService::class,
+            PagarmeWebhookService::class,
             FeeCalculator::class,
             GatewayPipeline::class,
             PaymentRepositoryInterface::class,
