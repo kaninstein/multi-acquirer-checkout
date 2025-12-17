@@ -3,6 +3,7 @@
 namespace Kaninstein\MultiAcquirerCheckout\Application\Services;
 
 use Illuminate\Contracts\Events\Dispatcher;
+use Kaninstein\MultiAcquirerCheckout\Domain\Webhooks\Events\GatewayWebhookReceived;
 use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Contracts\PaymentRepositoryInterface;
 
 final readonly class PagarmeWebhookService
@@ -29,6 +30,17 @@ final readonly class PagarmeWebhookService
         $gatewayTransactionId = $this->extractGatewayTransactionId($eventType, $data);
         if ($gatewayTransactionId === null) {
             return ['status' => 'ignored'];
+        }
+
+        $status = $this->normalizeStatusForEvent($eventType);
+        if ($status !== null) {
+            $this->events->dispatch(new GatewayWebhookReceived(
+                gatewayName: 'pagarme',
+                gatewayTransactionId: $gatewayTransactionId,
+                status: $status,
+                eventType: $eventType,
+                payload: $payload,
+            ));
         }
 
         $payment = $this->payments->findByGatewayTransactionId($gatewayTransactionId);
@@ -110,5 +122,16 @@ final readonly class PagarmeWebhookService
 
         return null;
     }
-}
 
+    private function normalizeStatusForEvent(string $eventType): ?string
+    {
+        return match ($eventType) {
+            'charge.paid', 'charge.payment_succeeded', 'order.paid' => 'paid',
+            'charge.pending', 'charge.waiting_payment', 'order.pending' => 'pending',
+            'charge.failed', 'charge.payment_failed' => 'failed',
+            'charge.refunded' => 'refunded',
+            'charge.canceled', 'order.canceled' => 'canceled',
+            default => null,
+        };
+    }
+}
