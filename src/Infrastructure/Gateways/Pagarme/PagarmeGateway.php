@@ -301,15 +301,20 @@ class PagarmeGateway extends AbstractGateway
             'payment_method' => 'credit_card',
             'credit_card' => [
                 'installments' => max(1, min(12, $request->installments)),
-                'card' => [
-                    'number' => $card->number,
-                    'holder_name' => $card->holderName,
-                    'exp_month' => $card->expMonth,
-                    'exp_year' => $card->expYear,
-                    'cvv' => $card->cvv,
-                ],
             ],
         ];
+
+        if (is_string($card->token) && $card->token !== '') {
+            $payload['credit_card']['card_id'] = $card->token;
+        } else {
+            $payload['credit_card']['card'] = [
+                'number' => $card->number,
+                'holder_name' => $card->holderName,
+                'exp_month' => $card->expMonth,
+                'exp_year' => $card->expYear,
+                'cvv' => $card->cvv,
+            ];
+        }
 
         if ($statement !== '') {
             $payload['credit_card']['statement_descriptor'] = $statement;

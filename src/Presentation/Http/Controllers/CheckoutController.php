@@ -35,6 +35,7 @@ class CheckoutController
             'card.exp_month' => ['sometimes', 'integer', 'min:1', 'max:12'],
             'card.exp_year' => ['sometimes', 'integer', 'min:2000', 'max:2100'],
             'card.cvv' => ['sometimes', 'string'],
+            'card.token' => ['sometimes', 'string'],
             'metadata' => ['sometimes', 'array'],
             'gateway' => ['sometimes', 'string'],
             'platform_fee_rate' => ['sometimes', 'numeric', 'min:0', 'max:1'],

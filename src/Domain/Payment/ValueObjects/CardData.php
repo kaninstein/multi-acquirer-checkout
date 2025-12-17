@@ -10,10 +10,11 @@ final readonly class CardData
         public int $expMonth,
         public int $expYear,
         public string $cvv,
+        public ?string $token = null,
     ) {}
 
     /**
-     * @param  array{number?:string,holder_name?:string,exp_month?:int,exp_year?:int,cvv?:string}  $data
+     * @param  array{number?:string,holder_name?:string,exp_month?:int,exp_year?:int,cvv?:string,token?:string}  $data
      */
     public static function fromArray(array $data): self
     {
@@ -23,6 +24,7 @@ final readonly class CardData
             expMonth: (int) ($data['exp_month'] ?? 0),
             expYear: (int) ($data['exp_year'] ?? 0),
             cvv: (string) ($data['cvv'] ?? ''),
+            token: isset($data['token']) ? (string) $data['token'] : null,
         );
     }
 
@@ -37,7 +39,7 @@ final readonly class CardData
             'exp_month' => $this->expMonth,
             'exp_year' => $this->expYear,
             'cvv' => $this->cvv,
+            'token' => $this->token,
         ];
     }
 }
-
