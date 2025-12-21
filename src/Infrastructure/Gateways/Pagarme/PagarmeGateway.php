@@ -77,10 +77,23 @@ class PagarmeGateway extends AbstractGateway
 
             if ($request->paymentMethod->value === 'pix') {
                 [$pix, $pixUrl] = $this->resolvePixData($lastTransaction, $charge);
+
+                // Get expiration time from charge or set default (1 hour from now)
+                $expiresAt = null;
+                if (isset($lastTransaction['pix_expiration_date'])) {
+                    $expiresAt = $lastTransaction['pix_expiration_date'];
+                } elseif (isset($charge['metadata']['pix_expiration_date'])) {
+                    $expiresAt = $charge['metadata']['pix_expiration_date'];
+                } else {
+                    // Default to 1 hour from now if not specified
+                    $expiresAt = gmdate('c', strtotime('+1 hour'));
+                }
+
                 $payload['pix'] = [
                     'qrcode' => $pix,
                     'copy_paste' => $pix,
                     'qrcode_url' => $pixUrl,
+                    'expires_at' => $expiresAt,
                 ];
             }
 
