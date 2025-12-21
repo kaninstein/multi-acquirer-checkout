@@ -76,11 +76,11 @@ class PagarmeGateway extends AbstractGateway
             }
 
             if ($request->paymentMethod->value === 'pix') {
-                $pix = $lastTransaction['qr_code'] ?? $lastTransaction['pix_qr_code'] ?? null;
-                $pixText = $lastTransaction['qr_code_url'] ?? $lastTransaction['pix_qr_code_url'] ?? null;
+                [$pix, $pixUrl] = $this->resolvePixData($lastTransaction, $charge);
                 $payload['pix'] = [
                     'qrcode' => $pix,
-                    'copy_paste' => $pixText,
+                    'copy_paste' => $pix,
+                    'qrcode_url' => $pixUrl,
                 ];
             }
 
@@ -349,5 +349,93 @@ class PagarmeGateway extends AbstractGateway
         }
 
         return false;
+    }
+
+    /**
+     * @param  array<string, mixed>  $lastTransaction
+     * @param  array<string, mixed>  $charge
+     * @return array{0:?string,1:?string}
+     */
+    private function resolvePixData(array $lastTransaction, array $charge): array
+    {
+        $pixCode = $this->firstNonUrl([
+            $lastTransaction['pix_qr_code'] ?? null,
+            $lastTransaction['qr_code'] ?? null,
+            $lastTransaction['pix_copy_paste'] ?? null,
+        ]);
+
+        $pixUrl = $this->firstUrl([
+            $lastTransaction['pix_qr_code_url'] ?? null,
+            $lastTransaction['qr_code_url'] ?? null,
+        ]);
+
+        if ($pixCode === null) {
+            $pixCode = $this->firstNonUrl([
+                $lastTransaction['pix_qr_code_url'] ?? null,
+                $lastTransaction['qr_code_url'] ?? null,
+            ]);
+        }
+
+        if ($pixCode === null) {
+            $transactionId = $lastTransaction['id'] ?? $charge['id'] ?? null;
+            if ($transactionId) {
+                $qr = Pagarme::transactions()->qrcode((string) $transactionId, 'pix');
+                $pixCode = $this->firstNonUrl([
+                    $qr['qr_code'] ?? null,
+                    $qr['pix_qr_code'] ?? null,
+                    $qr['emv'] ?? null,
+                    $qr['payload'] ?? null,
+                ]);
+                if ($pixUrl === null) {
+                    $pixUrl = $this->firstUrl([
+                        $qr['qr_code_url'] ?? null,
+                        $qr['pix_qr_code_url'] ?? null,
+                    ]);
+                }
+            }
+        }
+
+        return [$pixCode, $pixUrl];
+    }
+
+    /**
+     * @param  array<int, mixed>  $values
+     */
+    private function firstNonUrl(array $values): ?string
+    {
+        foreach ($values as $value) {
+            if (! is_string($value) || $value === '') {
+                continue;
+            }
+
+            if (! $this->looksLikeUrl($value)) {
+                return $value;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param  array<int, mixed>  $values
+     */
+    private function firstUrl(array $values): ?string
+    {
+        foreach ($values as $value) {
+            if (! is_string($value) || $value === '') {
+                continue;
+            }
+
+            if ($this->looksLikeUrl($value)) {
+                return $value;
+            }
+        }
+
+        return null;
+    }
+
+    private function looksLikeUrl(string $value): bool
+    {
+        return str_starts_with($value, 'http://') || str_starts_with($value, 'https://');
     }
 }
