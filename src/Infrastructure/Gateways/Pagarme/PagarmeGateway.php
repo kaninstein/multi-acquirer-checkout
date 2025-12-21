@@ -415,6 +415,11 @@ class PagarmeGateway extends AbstractGateway
      */
     private function resolvePixData(array $lastTransaction, array $charge): array
     {
+        \Illuminate\Support\Facades\Log::debug('Pagarme: Resolving PIX data', [
+            'transaction_keys' => array_keys($lastTransaction),
+            'charge_keys' => array_keys($charge),
+        ]);
+
         $pixCode = $this->firstNonUrl([
             $lastTransaction['pix_qr_code'] ?? null,
             $lastTransaction['qr_code'] ?? null,
@@ -424,6 +429,11 @@ class PagarmeGateway extends AbstractGateway
         $pixUrl = $this->firstUrl([
             $lastTransaction['pix_qr_code_url'] ?? null,
             $lastTransaction['qr_code_url'] ?? null,
+        ]);
+
+        \Illuminate\Support\Facades\Log::debug('Pagarme: Initial PIX data from transaction', [
+            'has_pix_code' => $pixCode !== null,
+            'has_pix_url' => $pixUrl !== null,
         ]);
 
         if ($pixCode === null) {
@@ -436,21 +446,44 @@ class PagarmeGateway extends AbstractGateway
         if ($pixCode === null) {
             $transactionId = $lastTransaction['id'] ?? $charge['id'] ?? null;
             if ($transactionId) {
-                $qr = Pagarme::transactions()->qrcode((string) $transactionId, 'pix');
-                $pixCode = $this->firstNonUrl([
-                    $qr['qr_code'] ?? null,
-                    $qr['pix_qr_code'] ?? null,
-                    $qr['emv'] ?? null,
-                    $qr['payload'] ?? null,
+                \Illuminate\Support\Facades\Log::debug('Pagarme: Fetching QR code from API', [
+                    'transaction_id' => $transactionId,
                 ]);
-                if ($pixUrl === null) {
-                    $pixUrl = $this->firstUrl([
-                        $qr['qr_code_url'] ?? null,
-                        $qr['pix_qr_code_url'] ?? null,
+
+                try {
+                    $qr = Pagarme::transactions()->qrcode((string) $transactionId, 'pix');
+
+                    \Illuminate\Support\Facades\Log::debug('Pagarme: QR code API response', [
+                        'qr_response_keys' => array_keys($qr),
+                        'qr_response' => $qr,
+                    ]);
+
+                    $pixCode = $this->firstNonUrl([
+                        $qr['qr_code'] ?? null,
+                        $qr['pix_qr_code'] ?? null,
+                        $qr['emv'] ?? null,
+                        $qr['payload'] ?? null,
+                    ]);
+                    if ($pixUrl === null) {
+                        $pixUrl = $this->firstUrl([
+                            $qr['qr_code_url'] ?? null,
+                            $qr['pix_qr_code_url'] ?? null,
+                        ]);
+                    }
+                } catch (\Throwable $e) {
+                    \Illuminate\Support\Facades\Log::error('Pagarme: Failed to fetch QR code', [
+                        'transaction_id' => $transactionId,
+                        'error' => $e->getMessage(),
                     ]);
                 }
             }
         }
+
+        \Illuminate\Support\Facades\Log::debug('Pagarme: Final PIX data', [
+            'has_pix_code' => $pixCode !== null,
+            'has_pix_url' => $pixUrl !== null,
+            'pix_code_length' => $pixCode ? strlen($pixCode) : 0,
+        ]);
 
         return [$pixCode, $pixUrl];
     }
