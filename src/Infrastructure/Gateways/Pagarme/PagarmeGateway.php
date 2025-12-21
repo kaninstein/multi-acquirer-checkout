@@ -259,6 +259,13 @@ class PagarmeGateway extends AbstractGateway
             $customer['document_type'] = strlen((string) $document) === 11 ? 'CPF' : 'CNPJ';
         }
 
+        $phonePayload = $this->buildPhonePayload($request->customer->phone ?? null);
+        if ($phonePayload) {
+            $customer['phones'] = [
+                'home_phone' => $phonePayload,
+            ];
+        }
+
         return $customer;
     }
 
@@ -349,6 +356,43 @@ class PagarmeGateway extends AbstractGateway
         }
 
         return false;
+    }
+
+    /**
+     * @return array<string, string>|null
+     */
+    private function buildPhonePayload(?string $phone): ?array
+    {
+        if (! is_string($phone) || $phone === '') {
+            return null;
+        }
+
+        $digits = preg_replace('/\\D/', '', $phone);
+        if ($digits === '') {
+            return null;
+        }
+
+        $countryCode = '55';
+        if (str_starts_with($digits, '55') && strlen($digits) >= 12) {
+            $countryCode = substr($digits, 0, 2);
+            $areaCode = substr($digits, 2, 2);
+            $number = substr($digits, 4);
+        } elseif (strlen($digits) >= 10) {
+            $areaCode = substr($digits, 0, 2);
+            $number = substr($digits, 2);
+        } else {
+            return null;
+        }
+
+        if (strlen($number) < 8) {
+            return null;
+        }
+
+        return [
+            'country_code' => $countryCode,
+            'area_code' => $areaCode,
+            'number' => $number,
+        ];
     }
 
     /**
