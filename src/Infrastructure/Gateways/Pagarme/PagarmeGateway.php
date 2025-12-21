@@ -415,7 +415,7 @@ class PagarmeGateway extends AbstractGateway
      */
     private function resolvePixData(array $lastTransaction, array $charge): array
     {
-        \Illuminate\Support\Facades\Log::info('Pagarme: Resolving PIX data', [
+        \Illuminate\Support\Facades\Log::debug('Pagarme: Resolving PIX data', [
             'transaction_keys' => array_keys($lastTransaction),
             'charge_keys' => array_keys($charge),
         ]);
@@ -431,7 +431,7 @@ class PagarmeGateway extends AbstractGateway
             $lastTransaction['qr_code_url'] ?? null,
         ]);
 
-        \Illuminate\Support\Facades\Log::info('Pagarme: Initial PIX data from transaction', [
+        \Illuminate\Support\Facades\Log::debug('Pagarme: Initial PIX data from transaction', [
             'has_pix_code' => $pixCode !== null,
             'has_pix_url' => $pixUrl !== null,
         ]);
@@ -446,14 +446,14 @@ class PagarmeGateway extends AbstractGateway
         if ($pixCode === null) {
             $transactionId = $lastTransaction['id'] ?? $charge['id'] ?? null;
             if ($transactionId) {
-                \Illuminate\Support\Facades\Log::info('Pagarme: Fetching QR code from API', [
+                \Illuminate\Support\Facades\Log::debug('Pagarme: Fetching QR code from API', [
                     'transaction_id' => $transactionId,
                 ]);
 
                 try {
                     $qr = Pagarme::transactions()->qrcode((string) $transactionId, 'pix');
 
-                    \Illuminate\Support\Facades\Log::info('Pagarme: QR code API response', [
+                    \Illuminate\Support\Facades\Log::debug('Pagarme: QR code API response', [
                         'qr_response_keys' => array_keys($qr),
                         'qr_response' => $qr,
                     ]);
@@ -479,7 +479,7 @@ class PagarmeGateway extends AbstractGateway
             }
         }
 
-        \Illuminate\Support\Facades\Log::info('Pagarme: Final PIX data', [
+        \Illuminate\Support\Facades\Log::debug('Pagarme: Final PIX data', [
             'has_pix_code' => $pixCode !== null,
             'has_pix_url' => $pixUrl !== null,
             'pix_code_length' => $pixCode ? strlen($pixCode) : 0,
