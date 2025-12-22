@@ -386,13 +386,14 @@ class PagarmeGateway extends AbstractGateway
         }
 
         $countryCode = '55';
-        if (str_starts_with($digits, '55') && strlen($digits) >= 12) {
-            $countryCode = substr($digits, 0, 2);
-            $areaCode = substr($digits, 2, 2);
-            $number = substr($digits, 4);
-        } elseif (strlen($digits) >= 10) {
-            $areaCode = substr($digits, 0, 2);
-            $number = substr($digits, 2);
+        $digitsStr = (string) $digits;
+        if (str_starts_with($digitsStr, '55') && strlen($digitsStr) >= 12) {
+            $countryCode = substr($digitsStr, 0, 2);
+            $areaCode = substr($digitsStr, 2, 2);
+            $number = substr($digitsStr, 4);
+        } elseif (strlen($digitsStr) >= 10) {
+            $areaCode = substr($digitsStr, 0, 2);
+            $number = substr($digitsStr, 2);
         } else {
             return null;
         }
