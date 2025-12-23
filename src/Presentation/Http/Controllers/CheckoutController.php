@@ -37,6 +37,11 @@ class CheckoutController
             'card.cvv' => ['sometimes', 'string'],
             'card.token' => ['sometimes', 'string'],
             'metadata' => ['sometimes', 'array'],
+            'items' => ['sometimes', 'array'],
+            'items.*.amount_cents' => ['sometimes', 'integer', 'min:1'],
+            'items.*.quantity' => ['sometimes', 'integer', 'min:1'],
+            'items.*.code' => ['sometimes', 'string'],
+            'items.*.description' => ['sometimes', 'string'],
             'gateway' => ['sometimes', 'string'],
             'platform_fee_rate' => ['sometimes', 'numeric', 'min:0', 'max:1'],
             'merchant_absorbs_financing' => ['sometimes', 'boolean'],
@@ -67,6 +72,7 @@ class CheckoutController
             merchantAbsorbsFinancing: (bool) ($validated['merchant_absorbs_financing'] ?? false),
             feeResponsibility: (string) ($validated['fee_responsibility'] ?? 'buyer'),
             platformFeeRate: array_key_exists('platform_fee_rate', $validated) ? (float) $validated['platform_fee_rate'] : null,
+            items: (array) ($validated['items'] ?? []),
         ));
 
         return response()->json([

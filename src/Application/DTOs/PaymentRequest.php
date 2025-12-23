@@ -11,6 +11,7 @@ final readonly class PaymentRequest
 {
     /**
      * @param array<string, mixed> $metadata
+     * @param array<int, array<string, mixed>> $items
      */
     public function __construct(
         public Money $amount,
@@ -23,6 +24,7 @@ final readonly class PaymentRequest
         public bool $merchantAbsorbsFinancing = false,
         public string $feeResponsibility = 'buyer',
         public ?float $platformFeeRate = null,
+        public array $items = [],
     ) {}
 
     public function isCardPayment(): bool

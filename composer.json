@@ -1,5 +1,6 @@
 {
     "name": "kaninstein/multi-acquirer-checkout",
+    "version": "1.0.16",
     "description": "Multi-acquirer checkout package with DDD architecture for Laravel",
     "keywords": [
         "laravel",

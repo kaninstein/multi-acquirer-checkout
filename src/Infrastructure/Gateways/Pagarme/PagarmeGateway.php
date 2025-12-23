@@ -232,15 +232,33 @@ class PagarmeGateway extends AbstractGateway
      */
         private function buildOrderData(PaymentRequest $request): array
     {
-        $order = [
-            'items' => [
+        $items = [];
+        foreach ($request->items as $item) {
+            $amountCents = (int) ($item['amount_cents'] ?? 0);
+            if ($amountCents <= 0) {
+                continue;
+            }
+            $items[] = [
+                'amount' => $amountCents,
+                'description' => (string) ($item['description'] ?? $item['name'] ?? $request->metadata['description'] ?? 'Checkout'),
+                'quantity' => (int) ($item['quantity'] ?? 1),
+                'code' => (string) ($item['code'] ?? $item['id'] ?? $request->metadata['item_code'] ?? 'ITEM-1'),
+            ];
+        }
+
+        if ($items === []) {
+            $items = [
                 [
                     'amount' => $request->amount->amountInCents,
                     'description' => (string) ($request->metadata['description'] ?? 'Checkout'),
                     'quantity' => 1,
                     'code' => (string) ($request->metadata['item_code'] ?? 'ITEM-1'),
                 ],
-            ],
+            ];
+        }
+
+        $order = [
+            'items' => $items,
             'customer' => $this->buildCustomerData($request),
             'payments' => [
                 $this->buildPaymentData($request),
