@@ -3,9 +3,11 @@
 namespace Kaninstein\MultiAcquirerCheckout\Domain\Fee\Services;
 
 use Kaninstein\MultiAcquirerCheckout\Application\DTOs\FeeCalculationResult;
+use Kaninstein\MultiAcquirerCheckout\Domain\Fee\Contracts\FeeCalculatorInterface;
+use Kaninstein\MultiAcquirerCheckout\Domain\Fee\ValueObjects\FeeBreakdown;
 use Kaninstein\MultiAcquirerCheckout\Infrastructure\Repositories\Contracts\FeeConfigRepositoryInterface;
 
-class FeeCalculator
+class FeeCalculator implements FeeCalculatorInterface
 {
     public function __construct(
         private readonly FeeConfigRepositoryInterface $feeConfigs,
@@ -19,7 +21,7 @@ class FeeCalculator
         string $paymentMethod = 'card',
         string $gatewayName = 'pagarme',
         string $feeResponsibility = 'buyer',
-    ): FeeCalculationResult {
+    ): FeeBreakdown {
         $installments = max(1, min(12, $installments));
 
         $platformFeeCents = $this->calculatePlatformFee($productPriceCents, $platformFeeRate);
@@ -142,6 +144,29 @@ class FeeCalculator
 
         // card
         return ['percentage' => 0.0559, 'fixed_cents' => 99];
+    }
+
+    public function getGatewayFeeRate(
+        string $gatewayName,
+        string $paymentMethod,
+        int $installments
+    ): float {
+        $config = $this->getGatewayConfig($gatewayName, $paymentMethod, $installments);
+        return (float) $config['percentage'];
+    }
+
+    public function calculateFinancingFee(
+        int $amountCents,
+        int $installments,
+        float $monthlyRate
+    ): int {
+        if ($installments <= 1) {
+            return 0;
+        }
+
+        // Simple interest calculation for financing
+        $months = $installments - 1;
+        return (int) bcmul((string) $amountCents, (string) ($monthlyRate * $months), 0);
     }
 }
 

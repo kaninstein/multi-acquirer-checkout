@@ -179,4 +179,31 @@ return [
         'dispatch_domain_events' => true,
         'async' => true, // Queue events for async processing
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validation Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Enable/disable validation and configure validation rules.
+    |
+    */
+    'validation' => [
+        'enabled' => env('MULTI_ACQUIRER_VALIDATION_ENABLED', true),
+        'min_amount_cents' => env('MULTI_ACQUIRER_MIN_AMOUNT_CENTS', 100), // R$ 1.00
+        'max_amount_cents' => env('MULTI_ACQUIRER_MAX_AMOUNT_CENTS', 10000000), // R$ 100,000.00
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Hooks Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configure hooks/callbacks for payment flow customization.
+    | Hooks are registered via HookManager in your application's ServiceProvider.
+    |
+    */
+    'hooks' => [
+        'enabled' => env('MULTI_ACQUIRER_HOOKS_ENABLED', true),
+    ],
 ];

@@ -5,8 +5,11 @@ namespace Kaninstein\MultiAcquirerCheckout;
 use Illuminate\Support\ServiceProvider;
 use Kaninstein\MultiAcquirerCheckout\Application\Services\CheckoutService;
 use Kaninstein\MultiAcquirerCheckout\Application\Services\PagarmeWebhookService;
+use Kaninstein\MultiAcquirerCheckout\Domain\Fee\Contracts\FeeCalculatorInterface;
 use Kaninstein\MultiAcquirerCheckout\Domain\Fee\Services\FeeCalculator;
 use Kaninstein\MultiAcquirerCheckout\Domain\Gateway\Contracts\GatewayInterface;
+use Kaninstein\MultiAcquirerCheckout\Domain\Validation\ValidationManager;
+use Kaninstein\MultiAcquirerCheckout\Support\Hooks\HookManager;
 use Kaninstein\MultiAcquirerCheckout\Infrastructure\Gateways\Appmax\AppmaxGateway;
 use Kaninstein\MultiAcquirerCheckout\Infrastructure\Gateways\MercadoPago\MercadoPagoGateway;
 use Kaninstein\MultiAcquirerCheckout\Infrastructure\Gateways\Pagarme\PagarmeGateway;
@@ -137,9 +140,19 @@ class MultiAcquirerCheckoutServiceProvider extends ServiceProvider
      */
     protected function registerServices(): void
     {
+        // Register core services
         $this->app->singleton(CheckoutService::class);
         $this->app->singleton(PagarmeWebhookService::class);
+
+        // Register Fee Calculator with interface binding
+        $this->app->singleton(FeeCalculatorInterface::class, FeeCalculator::class);
         $this->app->singleton(FeeCalculator::class);
+
+        // Register Hook Manager
+        $this->app->singleton(HookManager::class);
+
+        // Register Validation Manager
+        $this->app->singleton(ValidationManager::class);
     }
 
     /**
@@ -153,10 +166,13 @@ class MultiAcquirerCheckoutServiceProvider extends ServiceProvider
             CheckoutService::class,
             PagarmeWebhookService::class,
             FeeCalculator::class,
+            FeeCalculatorInterface::class,
             GatewayPipeline::class,
             PaymentRepositoryInterface::class,
             OrderRepositoryInterface::class,
             FeeConfigRepositoryInterface::class,
+            HookManager::class,
+            ValidationManager::class,
         ];
     }
 }
