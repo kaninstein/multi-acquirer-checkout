@@ -343,7 +343,11 @@ class PagarmeGateway extends AbstractGateway
         ];
 
         if (is_string($card->token) && $card->token !== '') {
-            $payload['credit_card']['card_id'] = $card->token;
+            if ($this->isPagarmeCardToken($card->token)) {
+                $payload['credit_card']['card_token'] = $card->token;
+            } else {
+                $payload['credit_card']['card_id'] = $card->token;
+            }
         } else {
             $payload['credit_card']['card'] = [
                 'number' => $card->number,
@@ -359,6 +363,11 @@ class PagarmeGateway extends AbstractGateway
         }
 
         return $payload;
+    }
+
+    private function isPagarmeCardToken(string $token): bool
+    {
+        return str_starts_with($token, 'token_') || str_starts_with($token, 'tok_');
     }
 
     private function isCardRejectionError(string $errorMessage): bool
