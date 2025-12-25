@@ -81,7 +81,7 @@ class FeeCalculator implements FeeCalculatorInterface
 
         $installmentValue = (int) ceil($amountPaidByCustomer / $installments);
 
-        return new FeeCalculationResult(
+        return new FeeBreakdown(
             productPriceCents: $productPriceCents,
             installments: $installments,
             platformFeeRateSnapshot: $platformFeeRate,
@@ -169,4 +169,3 @@ class FeeCalculator implements FeeCalculatorInterface
         return (int) bcmul((string) $amountCents, (string) ($monthlyRate * $months), 0);
     }
 }
-
