@@ -7,7 +7,7 @@ use Kaninstein\MultiAcquirerCheckout\Application\DTOs\FeeCalculationResult;
 /**
  * Type alias for FeeCalculationResult to maintain interface contract
  */
-class FeeBreakdown extends FeeCalculationResult
+readonly class FeeBreakdown extends FeeCalculationResult
 {
     // Inherits all properties and methods from FeeCalculationResult
 }
