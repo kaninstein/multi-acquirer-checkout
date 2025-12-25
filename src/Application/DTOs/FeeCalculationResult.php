@@ -2,7 +2,7 @@
 
 namespace Kaninstein\MultiAcquirerCheckout\Application\DTOs;
 
-final readonly class FeeCalculationResult
+readonly class FeeCalculationResult
 {
     public function __construct(
         public int $productPriceCents,
@@ -46,4 +46,3 @@ final readonly class FeeCalculationResult
         ];
     }
 }
-
